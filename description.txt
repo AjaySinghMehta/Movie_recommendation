@@ -1,0 +1,107 @@
+What is Recommender Systems
+
+
+
+
+
+Types of recommender Systems
+
+1 - Content Based
+    Recommends on the basis of content (#tags)
+    (ex: previous youtube, spotify, any music system or netflix)
+
+2 - Collaborative Filetering
+    Recommends on the basis of behaviour.
+    If two user who have same taste or you can behaviour then if one of them watches something
+    which the other guys hasn't yet seen then the model suggests that to the other user with the 
+    same behaviour.
+    (ex: facebook, instagram)
+
+
+3 - Hybrid
+    here both of the above are used together i.e. both content based and Collaborative filetering
+    to enhance the performance of the model 
+    (ex: youtube now a days uses hybrid models)
+
+
+In this project we will use Content Based and build Movie Recommendation system.
+
+
+
+Flow:
+    first -> Data
+    Seond -> preprocessing
+    Third -> model building
+    fourth-> Website integration
+    fifth -> Deployment of the model
+
+
+First -> Data -> TMDB 5000 Movie Dataset
+                 Based on : budget
+                            genres
+                            homepage
+                            id (according to the TMDB website)
+                            keywords 
+                            original_language
+                            original_title
+                            overview
+                            popularity
+                            production_comapanies
+                            production_countries
+                            release_date
+                            revenue
+                            runtime
+                            spoken_language
+                            status
+                            tagline
+                            title
+                            vote_average
+                            vote_count
+
+                    The columns we used are: 
+                            genres
+                            id (will be useful in further when we will require the poster of the movies there we will fetch them using this id to show on our website)
+                            keywords
+                            title (easy to understand in universal language which we here consider is English)
+                            overview (very important as we can judge the similarity of the movies using this)
+                            cast (as someone like the movies of some particular actor)
+                            crew (many prefer movies by a particular director i.e. crew itself)
+
+
+second -> preprocessing ->used only required columns
+                          and further the data will only contain
+                              movie-id , title , tags(in this all the other required columns are merged with further preprocessing)
+                              i.e. from cast only top 3 cast will be taken 
+                                   from genres some of the keywords will be used        
+                                   from crew only director name will be used
+                                   Etc 
+
+
+
+Vectorization: 
+    text -> vectors
+    and system or model will recommed the movie or vector which is closest to searched one or reference
+
+    this Vectorization is called text vectorization 
+    there are multiple techniques for this 
+    we will use Bag of Words (simplest)
+    others are tfidf, word to vec
+
+
+    Bag of words 
+        here you combine all the tags and figure out the most frequent words and then extract them.
+
+        now we will pick the tags one by one again and check how many times all the extractex words are present in the same tags and doing this
+        for all a table of extracted words and movies will be created and the rows of this table are nothing but the vectors
+
+        we will not consider the stop words while doing vectorization (ex: are in a the etc ) i.e. all the gramatical terms
+
+
+while creating the ide for this i faced a error which are as follows which later were solved
+
+    Error 1: NameError: name 'movies' is not defined.
+    Solution: Load the movies.pkl file before defining the movies variable.
+    Solution: Use the argmax() method to get the index of the selected movie from the movies array.
+    Error 3: AttributeError: 'numpy.ndarray' object has no attribute 'index'.
+
+    Solution: Replace the index[0] method call with argmax() method.
